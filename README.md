@@ -28,7 +28,7 @@
 安装命令：
 
 ```
-$ pip install Django django-crontab Scrapy requests pymysql pandas numpy wordcloud Markdown2 
+$ pip install Django django-crontab Scrapy requests pymysql pandas numpy wordcloud Markdown2 mysqlclient redis chardet
 ```
 安装 matplotlib 请参考：[matplotlib github](https://github.com/ehmatthes/pcc/blob/master/chapter_15/README.md#installing-matplotlib)
 
