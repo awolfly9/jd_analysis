@@ -97,7 +97,7 @@ redis_db = 10
 部分设置参数说明：
 
 | param | Description | 默认值 |
-| ----| ---- | ---- | ----|
+| ----| ---- | ---- |
 | is_distributed | 是否分布式抓取 | False |
 | is_proxy | 是否使用代理 | False |
 | proxy_address | 代理地址 | <http://127.0.0.1:8000/>|
