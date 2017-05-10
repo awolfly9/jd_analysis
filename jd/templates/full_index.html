@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>京东商品评价分析-订阅式服务</title>
+{% endblock %}
+
+
+{% block context %}
+	{% csrf_token %}
+	{% include "left_nav.html" %}
+
+	<div class = "index-wrapper">
+		<div class = "index-content">
+			<div class = "content-list">
+				<div>
+					<p class = "describe">订阅式服务：请输入京东商城商品链接（URL）和您的邮箱地址，当抓取所有评价数据并且分析完成后，会通过邮件将分析结果发送到您的邮箱</p>
+					{#					<label for = "url">请输入京东商城商品的网址 （URL）：</label>#}
+					<input type = "text" class = "form-control" id = "url" name = "url" placeholder = "https://item.jd.com/3995645.html">
+					<input type = "email" class = "form-control" id = "mail" name = "email" placeholder = "email">
+					<button id = "sendurl" class = "button btn-lg" type = "button">开始分析</button>
+				</div>
+				<div class = "container">
+					<ul id = "result" class = "list-group">
+					</ul>
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<script src = "/static/js/jquery_cookie.js"></script>
+	<script>
+        var listContainer = $('#result');
+        $(document).ready(function () {
+            $("#sendurl").click(function () {
+                listContainer.empty();
+
+                var url = $("#url").val();
+                if (url === '' || url === null) {
+                    url = $("#url").attr('placeholder');
+                }
+
+                $.post("full_comment", {
+                        url: url,
+                        email: $("#mail").val()
+                    },
+                    function (data) {
+                        if (data.status == 'success') {
+                            listContainer.append('<li> ' + data.info + '</li>');
+                        }
+                        else {
+                            alert(data.info);
+                        }
+                    });
+            });
+        });
+	</script>
+{% endblock %}

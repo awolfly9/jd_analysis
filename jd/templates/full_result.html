@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>京东商品评价分析-订阅式服务</title>
+{% endblock %}
+
+
+{% block context %}
+	{% csrf_token %}
+	{% include "left_nav.html" %}
+	<div class = "index-wrapper">
+		<div class = "index-content">
+			<div class = "content-list">
+				{{ article.content | safe }}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

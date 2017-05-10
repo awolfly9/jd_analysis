@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>京东评价信息数据分析</title>
+{% endblock %}
+
+{% block context %}
+	{% include "left_nav.html" %}
+	{% csrf_token %}
+
+	<div class = "index-wrapper">
+		<div class = "index-content">
+			<div class = "content-list">
+				<div>
+					<label for = "url">请输入京东商城商品的网址 （URL）：</label><br>
+					<input type = "text" class = "form-control" id = "url" name = "url" value = "https://item.jd.com/3995645.html"><br>
+					{#			<div>#}
+					{#				<input type = "checkbox" id = "force" name = "force" checked = "" class = "form-control" value = "force">#}
+					{#				<label for = "force">强制重新分析</label>#} {#			</div>#}
+					<button id = "sendurl" class = "button btn-lg" type = "button">开始分析</button>
+					<button id = "randurl" class = "button btn-lg" type = "button">随机分析京东主页的一个商品</button>
+				</div>
+				<div class = "container">
+					<ul id = "result">
+					</ul>
+				</div>
+				<br>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<script src = "/static/js/jquery_cookie.js"></script>
+	<script>
+        var interval = null;
+        var listContainer = $('#result');
+
+        $(document).ready(function () {
+            $("#sendurl").click(function () {
+                listContainer.empty();
+                $.cookie("url", $("#url").val());
+                if (interval != null) {
+                    clearInterval(interval);
+                }
+
+                $.post("runspider", {
+                        url: $("#url").val(),
+                        force: $("#force").is(':checked')
+                    },
+                    function (data) {
+                        if (data.status == 'success') {
+                            listContainer.append('<li> ' + data.info + '</li>');
+                            interval = setInterval(updateResult, 1000);
+                        }
+                        else {
+                            if (interval != null) {
+                                clearInterval(interval);
+                            }
+                            alert(data.info);
+                        }
+                    });
+            });
+
+            $("#randurl").click(function () {
+                listContainer.empty();
+                if (interval != null) {
+                    clearInterval(interval);
+                }
+
+                $.post("randitem", {
+                        'rand': 'true'
+                    },
+                    function (data) {
+                        if (data.status == 'success') {
+                            listContainer.append('<li> ' + data.info + '</li>');
+                            interval = setInterval(updateResult, 1000);
+                        }
+                        else {
+                            if (interval != null) {
+                                clearInterval(interval);
+                            }
+                            alert(data.info);
+                        }
+                    });
+            });
+
+            function updateResult() {
+                $.ajax({
+                    url: "analysis",
+                    success: function (data) {
+                        if (data.status == 'success' && data.info != null) {
+                            console.log(data.info)
+                            if (data.info == 'finish') {
+                                clearInterval(interval);
+                                data.info = '<strong style="color: red; font-size: 24px;">完成分析</strong>';
+                                $("#loader").remove();
+                            }
+
+                            if (data.type == 'word') {
+                                listContainer.append('<li> ' + data.info + '</li>');
+                            }
+                            else if (data.type == 'image') {
+                                listContainer.append(data.info)
+                            }
+                        }
+                    }, dataType: "json",
+                    error: function () {
+                        clearInterval(interval); // stop the interval
+                        listContainer.append('<li> ' + '<strong style="color: red; font-size: 24px;">对不起，出现错误，请重试</strong>' + '</li>');
+                        $("#loader").remove();
+                    }
+                });
+            }
+        });
+	</script>
+{% endblock %}

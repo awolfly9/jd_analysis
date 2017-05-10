@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>awolfly9 blog </title>
+{% endblock %}
+
+{% block style %}
+{#	<link rel = "stylesheet" href = "/static/assets/css/main.css" />#}
+{#	<link rel = "stylesheet" type = "text/css" href = "/static/style/style_base.css">#}
+{% endblock %}
+
+{% block context %}
+	{% include "left_nav.html" %}
+
+	<div class = "index-wrapper">
+		<div class = "index-content">
+			<ul class = "artical-list">
+				{% if articles %}
+					{% for article in articles %}
+						<li>
+							<a href = "{% url "article" article.url %}" class = "title">{{ article.title }}</a>
+							<div class = "title-desc">{{ article.abstract | safe }}
+							</div>
+						</li>
+					{% endfor %}
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+{% endblock %}

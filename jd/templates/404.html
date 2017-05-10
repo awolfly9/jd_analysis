@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>awolfly9 blog</title>
+{% endblock %}
+
+{% block style %}
+	<link rel = "stylesheet" href = "/static/assets/css/main.css" />
+	<link rel = "stylesheet" type = "text/css" href = "/static/style/style_base.css">
+{% endblock %}
+
+
+{% block context %}
+	{% include "left_nav.html" %}
+
+	<div class = "index-wrapper">
+		<div class = "index-content">
+			<ul class = "artical-list">
+				{# TODO... 做一个炫酷的 404 #}
+				<h4>你访问的页面不存在~</h4>
+			</ul>
+		</div>
+	</div>
+{% endblock %}

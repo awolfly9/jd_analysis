@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<meta charset = "utf-8" />
+	<meta name = "author" content = "awolfly9" />
+	<meta name = "renderer" content = "webkit">
+	<meta name = "description" content = "awolfly9 Blog" />
+	<meta name = "viewport" content = "width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<link rel = "shortcut icon" href = "/static/favicon.ico" type = "image/x-icon" />
+
+	{% block title %}
+		<title>awolfly9 blog</title>
+	{% endblock %}
+
+	{% block style %}
+		<link rel = "stylesheet" type = "text/css" href = "/static/style/style_base.css">
+	{% endblock %}
+</head>
+
+<body>
+{# 所有的博客标题 #}
+{% block context %}
+{% endblock %}
+</body>
+
+<!-- jquery Scripts -->
+<script src = "/static/assets/js/jquery.min.js"></script>
+<script src = "/static/assets/js/jquery.poptrox.min.js"></script>
+<script src = "/static/assets/js/skel.min.js"></script>
+<script src = "/static/assets/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+<script src = "/static/assets/js/main.js"></script>
+<script src = "/static/assets/js/jquery.cookie.js"></script>
+
+{# 加载单独的脚本 #}
+{% block script %}
+{% endblock script %}
+
+</html>

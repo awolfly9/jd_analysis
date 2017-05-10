@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+	{% if article %}
+		<title>{{ article.title }}</title>
+	{% endif %}
+{% endblock %}
+
+{% block style %}
+	{# <link rel = "stylesheet" type = "text/css" href = "/static/style/GitHub2.css">#}
+	{#	<link rel = "stylesheet" type = "text/css" href = "/static/style/GitHub.css">#}
+	{#	<link rel = "stylesheet" type = "text/css" href = "/static/style/Clearness.css">#}
+	{#	<link rel = "stylesheet" type = "text/css" href = "/static/style/Clearness Dark.css">#}
+
+	<link rel = "stylesheet" type = "text/css" href = "/static/style/style_base.css">
+{% endblock %}
+
+{% block context %}
+	{% if article %}
+		<body class = "body-post">
+		<div class = "post-wrapper">
+			<h1 class = "post-title"><a href = "{% url "article" article.url %}" title = "{{ article.title }}">{{ article.title }}</a>
+			</h1>
+			<p class = "post-date">{{ article.create_time|date:"Y-m-d" }}</p>
+			<div>
+				{{ article.content | safe }}
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
