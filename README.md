@@ -21,6 +21,8 @@
 * matplotlib
 * wordcloud
 * Markdown2
+* chardet
+* redis
 * redis 数据库
 * mysql 数据库
 
@@ -28,7 +30,7 @@
 安装命令：
 
 ```
-$ pip install Django django-crontab Scrapy requests pymysql pandas numpy wordcloud Markdown2 mysqlclient redis chardet
+$ pip install Django django-crontab Scrapy requests pymysql pandas numpy wordcloud Markdown2 redis chardet
 ```
 安装 matplotlib 请参考：[matplotlib github](https://github.com/ehmatthes/pcc/blob/master/chapter_15/README.md#installing-matplotlib)
 
@@ -129,6 +131,9 @@ $ python manage.py runserver
 如果在使用过程中有任何问题，欢迎提 Issues，也可联系我的微信进入微信群和大伙一起学习。（在我博客中可以找到我的微信）
 
 
+## 常见问题
+#### mysql 版本过低
+在创建表的时候可能会由于数据库版本过低创建失败，解决方式请参考：[stackoverflow](http://stackoverflow.com/questions/23054394/mysql-error-there-can-be-only-one-timestamp-column-with-current-timestamp-in-de)
 
 
 
