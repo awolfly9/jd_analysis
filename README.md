@@ -46,6 +46,11 @@ $ git clone https://github.com/awolfly9/jd_analysis.git
 ```
 $ cd jd_analysis
 ```
+进入mysql命令界面
+
+```
+$ mysql -u root -p 
+```
 
 创建 Django 使用的数据库
 
