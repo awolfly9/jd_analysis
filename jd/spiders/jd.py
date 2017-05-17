@@ -319,7 +319,6 @@ class JDSpider(Spider):
         if self.is_record_page:
             with open('%s/%s' % (self.log_dir, filename), 'w') as f:
                 f.write(data)
-                f.close()
 
     def close(spider, reason):
         if spider.product_msg != None:
