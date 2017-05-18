@@ -140,6 +140,16 @@ $ python manage.py runserver
 #### mysql 版本过低
 在创建表的时候可能会由于数据库版本过低创建失败，解决方式请参考：[stackoverflow](http://stackoverflow.com/questions/23054394/mysql-error-there-can-be-only-one-timestamp-column-with-current-timestamp-in-de)
 
+#### win 用户出现 文件名、目录名或卷标语法不正确
+python subprocess 的路径问题。解决方法是更改 jd/views 中 runspider 方法。
+
+```
+cmd = 'python manage.py real_time_analysis -a name={name} -a guid={guid} ' \
+      '-a product_id={product_id} -a url={url};'. \
+    format(url = str(url), name = name, dir = settings.BASE_DIR, guid = data.get('guid'),
+           product_id = product_id)
+subprocess.Popen(cmd, shell = True, cwd=settings.BASE_DIR)
+```
 
 
 
